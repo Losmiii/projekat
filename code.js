@@ -11,6 +11,10 @@ let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
 
+
+
+
+
 let titleError = document.querySelector('#titleError');
 let priorityError = document.querySelector('#priorityError');
 let statusError = document.querySelector('#statusError');
@@ -37,6 +41,8 @@ function clearErrors() {
     clearError(dueDateInput, dueDateError);
 }
 
+
+
 function clearFields() {
     titleInput.value = '';
     priorityInput.value = '';
@@ -47,12 +53,12 @@ function clearFields() {
 }
 
 let saved = localStorage.getItem('tasks-table');
-if (saved) {
-    table.innerHTML = saved;
+if  (saved) {
+     table.innerHTML = saved;
 }
 
 function save() {
-    localStorage.setItem('tasks-table', table.innerHTML);
+      localStorage.setItem('tasks-table', table.innerHTML);
 }
 
 
@@ -76,6 +82,8 @@ cancelBtn.addEventListener('click', () => {
 
 
 modal.addEventListener('input', clearErrors);
+
+
 modal.addEventListener('change', clearErrors);
 
 
@@ -86,11 +94,11 @@ addToTableBtn.addEventListener('click', () => {
     let valid = true;
 
     if (titleInput.value.trim() === '') {
-        showError(titleInput, titleError, 'Please enter title');
+        showError(titleInput, titleError, 'please enter Title');
         valid = false;
     }
     if (priorityInput.value === '') {
-        showError(priorityInput, priorityError, 'Please choose priority');
+        showError(priorityInput, priorityError, 'plesa choose priority');
         valid = false;
     }
     if (statusInput.value === '') {
@@ -98,15 +106,15 @@ addToTableBtn.addEventListener('click', () => {
         valid = false;
     }
     if (createdByInput.value.trim() === '') {
-        showError(createdByInput, createdByError, 'Please enter who created the task');
+        showError(createdByInput, createdByError, 'Please enter creator');
         valid = false;
     }
     if (dateAssignedInput.value === '') {
-        showError(dateAssignedInput, dateAssignedError, 'Please enter date assigned');
+        showError(dateAssignedInput, dateAssignedError, 'Please enter date ');
         valid = false;
     }
     if (dueDateInput.value === '') {
-        showError(dueDateInput, dueDateError, 'Please enter due date');
+        showError(dueDateInput, dueDateError, 'Please enter date');
         valid = false;
     }
 
