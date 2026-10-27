@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    button {
+      padding: 10px;
+    }
+
+    #openBtn {
+      margin-bottom: 10px;
+      
+    }
+
+    dialog input {
+      display: block;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 200px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <button id="openBtn">Add</button>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Country</th>
+        <th>Action</th>
+      </tr>
+    </table>
+  </div>
+
+  <dialog id="modal">
+    <h3>Add new person</h3>
+    <input type="text" id="name" placeholder="Enter name">
+    <input type="number" id="age" placeholder="Enter age">
+    <input type="text" id="country" placeholder="Enter country">
+    <button id="addToTable">Add to table</button>
+    <button id="cancel">Cancel</button>
+  </dialog>
+
+ <script>
+  /*
+  let modal = document.querySelector('#modal');
+  let openBtn = document.querySelector('#openBtn');
+  let addToTableBtn = document.querySelector('#addToTable');
+  let cancelBtn = document.querySelector('#cancel');
+  let table = document.querySelector('table');
+
+  let nameInput = document.querySelector('#name');
+  let ageInput = document.querySelector('#age');
+  let countryInput = document.querySelector('#country');
+
+
+
+   /*
+
+  openBtn.addEventListener('click', function () {
+    modal.showModal();
+    nameInput.focus();
+  });
+
+  cancelBtn.addEventListener('click', function () {
+    modal.close();
+  });
+
+  addToTableBtn.addEventListener('click', function () {
+    let name = nameInput.value;
+    let age = ageInput.value;
+    let country = countryInput.value;
+
+    if (name === '' || age === '' || country === '') {
+      alert('Please enter data!');
+      return;
+    }
+
+    let template = `
+      <tr>
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${country}</td>
+        <td><button onclick="this.closest('tr').remove(); save()">delete</button></td>
+      </tr>`;
+
+    table.insertAdjacentHTML('beforeend', template);
+   
+    nameInput.value = '';
+    ageInput.value = '';
+    countryInput.value = '';
+    modal.close();
+  });
+  */
+</script>
+</body>
+</html>

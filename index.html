@@ -8,6 +8,34 @@
     <script src="code.js" defer></script>
 </head>
 <body>
+
+
+<div class="modal-container">
+    <dialog id="modal">
+        <h3>Create New Task</h3>
+        <input type="text" id="title" placeholder="Title">
+        <select class="priority-input" id="priority">
+            <option selected value="">Choose Priority</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Low</option>
+        </select>
+        <select class="status-input" id="status">
+            <option selected value="">Choose Status</option>
+            <option>Active</option>
+            <option>Inactive</option>
+        </select>
+        <input type="text" id="createdBy" placeholder="Created by">
+        <input type="date" id="dateAssigned">
+        <input type="date" id="dueDate">
+        <button id="addToTable">Add Task</button>
+        <button id="cancel">Cancel</button>
+    </dialog>
+</div>
+ 
+
+
+
     <main class="container">      
         <aside class="sidebar">
             <div class="logo">
@@ -92,66 +120,6 @@
                                 <th>Due Date</th>
                                 <th>  </th>
                             </tr>
-                            <tr>
-                                <td>New test Task title</td>
-                                <td class="priority">High</td>
-                                <td>In progress</td>
-                                <td>Maia</td>
-                                <td>29/07/2023</td>
-                                <td>28/04/2023</td>
-                                <td>
-                                    <div class="table-icons">
-                                        <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
-                                        <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                                        <img class="" src="assets/imgs/trash-can-solid-full.svg" alt="">
-                                    </div>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>New test Task title</td>
-                                <td class="priority">High</td>
-                                <td>In progress</td>
-                                <td>Maia</td>
-                                <td>29/07/2023</td>
-                                <td>28/04/2023</td>
-                                <td>
-                                         <div class="table-icons">
-                                        <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
-                                        <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                                        <img src="assets/imgs/trash-can-solid-full.svg" alt="">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>New test Task title</td>
-                                <td class="priority">High</td>
-                                <td>In progress</td>
-                                <td>Maia</td>
-                                <td>29/07/2023</td>
-                                <td>28/04/2023</td>
-                                <td>
-                                         <div class="table-icons">
-                                        <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
-                                        <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                                        <img src="assets/imgs/trash-can-solid-full.svg" alt="">
-                                    </div>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>New test Task title</td>
-                                <td class="priority">High</td>
-                                <td>In progress</td>
-                                <td>Maia</td>
-                                <td>29/07/2023</td>
-                                <td>28/04/2023</td>
-                                <td>
-                                         <div class="table-icons">
-                                        <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
-                                        <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                                        <img src="assets/imgs/trash-can-solid-full.svg" alt="">
-                                    </div>
-                                </td>
-                            </tr>
                         </table>
                     </section>
 
@@ -189,6 +157,8 @@
             </section>
         </section>
     </main>
+
+
 
 
 </body>
