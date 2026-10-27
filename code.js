@@ -11,40 +11,40 @@ let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
 
+let titleError = document.querySelector('#titleError');
+let priorityError = document.querySelector('#priorityError');
+let statusError = document.querySelector('#statusError');
+let createdByError = document.querySelector('#createdByError');
+let dateAssignedError = document.querySelector('#dateAssignedError');
+let dueDateError = document.querySelector('#dueDateError');
 
+function showError(input, errorEl, message) {
+    input.classList.add('invalid');
+    errorEl.textContent = message;
+}
 
-
-
-let fields = [
-    { input: titleInput, message: 'Please enter Title' },
-    { input: priorityInput, message: 'Please choose Pio' },
-    { input: statusInput, message: 'Please choose status' },
-    { input: createdByInput, message: 'Please enter who created the task' },
-    { input: dateAssignedInput, message: 'Please enter date ' },
-    { input: dueDateInput, message: 'Please enter date' }
-];
+function clearError(input, errorEl) {
+    input.classList.remove('invalid');
+    errorEl.textContent = '';
+}
 
 function clearErrors() {
-    modal.querySelectorAll('.error').forEach(el => el.remove());
-    fields.forEach(f => f.input.classList.remove('invalid'));
+    clearError(titleInput, titleError);
+    clearError(priorityInput, priorityError);
+    clearError(statusInput, statusError);
+    clearError(createdByInput, createdByError);
+    clearError(dateAssignedInput, dateAssignedError);
+    clearError(dueDateInput, dueDateError);
 }
 
 function clearFields() {
-    fields.forEach(f => f.input.value = '');
+    titleInput.value = '';
+    priorityInput.value = '';
+    statusInput.value = '';
+    createdByInput.value = '';
+    dateAssignedInput.value = '';
+    dueDateInput.value = '';
 }
-
-
-fields.forEach(({ input }) => {
-    let removeError = () => {
-        input.classList.remove('invalid');
-        let next = input.nextElementSibling;
-        if (next && next.classList.contains('error')) {
-            next.remove();
-        }
-    };
-    input.addEventListener('input', removeError);
-    input.addEventListener('change', removeError);
-});
 
 let saved = localStorage.getItem('tasks-table');
 if (saved) {
@@ -54,6 +54,7 @@ if (saved) {
 function save() {
     localStorage.setItem('tasks-table', table.innerHTML);
 }
+
 
 table.addEventListener('click', (e) => {
     if (e.target.matches('img[src*="trash-can"]')) {
@@ -74,21 +75,40 @@ cancelBtn.addEventListener('click', () => {
 });
 
 
-modal.addEventListener('close', () => {
-    clearErrors();
-});
+modal.addEventListener('input', clearErrors);
+modal.addEventListener('change', clearErrors);
+
+
+modal.addEventListener('close', clearErrors);
 
 addToTableBtn.addEventListener('click', () => {
     clearErrors();
     let valid = true;
 
-    fields.forEach(({ input, message }) => {
-        if (input.value.trim() === '') {
-            input.classList.add('invalid');
-            input.insertAdjacentHTML('afterend', `<small class="error">${message}</small>`);
-            valid = false;
-        }
-    });
+    if (titleInput.value.trim() === '') {
+        showError(titleInput, titleError, 'Please enter title');
+        valid = false;
+    }
+    if (priorityInput.value === '') {
+        showError(priorityInput, priorityError, 'Please choose priority');
+        valid = false;
+    }
+    if (statusInput.value === '') {
+        showError(statusInput, statusError, 'Please choose status');
+        valid = false;
+    }
+    if (createdByInput.value.trim() === '') {
+        showError(createdByInput, createdByError, 'Please enter who created the task');
+        valid = false;
+    }
+    if (dateAssignedInput.value === '') {
+        showError(dateAssignedInput, dateAssignedError, 'Please enter date assigned');
+        valid = false;
+    }
+    if (dueDateInput.value === '') {
+        showError(dueDateInput, dueDateError, 'Please enter due date');
+        valid = false;
+    }
 
     if (!valid) return;
 

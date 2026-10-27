@@ -309,13 +309,19 @@ footer {
     
 }
 
+
+
 #modal .invalid {
-    border: 1px solid rgb(252, 0, 0);
+    border: 1px solid #dc2626;
     background-color: #fef2f2;
 }
 
 #modal .error {
-    color: rgb(56, 37, 178);
+    color: #dc2626;
     font-size: 13px;
-    margin-top: -8px; 
+    margin-top: -8px;
+}
+
+#modal .error:empty {
+    display: none;
 }

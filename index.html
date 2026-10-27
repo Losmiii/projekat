@@ -13,21 +13,34 @@
 <div class="modal-container">
     <dialog id="modal">
         <h3>Create New Task</h3>
+
         <input type="text" id="title" placeholder="Title">
+        <small class="error" id="titleError"></small>
+
         <select class="priority-input" id="priority">
             <option selected value="">Choose Priority</option>
             <option>Medium</option>
             <option>High</option>
             <option>Low</option>
         </select>
+        <small class="error" id="priorityError"></small>
+
         <select class="status-input" id="status">
             <option selected value="">Choose Status</option>
             <option>Active</option>
             <option>Inactive</option>
         </select>
+        <small class="error" id="statusError"></small>
+
         <input type="text" id="createdBy" placeholder="Created by">
+        <small class="error" id="createdByError"></small>
+
         <input type="date" id="dateAssigned">
+        <small class="error" id="dateAssignedError"></small>
+
         <input type="date" id="dueDate">
+        <small class="error" id="dueDateError"></small>
+
         <button id="addToTable">Add Task</button>
         <button id="cancel">Cancel</button>
     </dialog>
