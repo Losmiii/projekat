@@ -80,7 +80,7 @@ function addRow(item) {
             <div class="table-icons">
                 <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
                 <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                <img src="assets/imgs/trash-can-solid-full.svg" alt="">
+                <img class="delete-icon" src="assets/imgs/trash-can-solid-full.svg" alt="">
             </div>
         </td>
     `;
@@ -119,20 +119,19 @@ function clearFields() {
 
 function filterTasks() {
     const data = JSON.parse(localStorage.getItem('savedTableData')) || [];
-
     const statusFilter = statusInput.value;
     const dateAssignedFilter = filterDateAssignedInput.value;
-    const dueDateFilter = filterDueDateInput.value;
-
+     const dueDateFilter = filterDueDateInput.value;
     const filteredData = data.filter(item => {
         const matchesStatus =
             statusFilter === '' ||
             item.status.toLowerCase() === statusFilter.toLowerCase();
 
+
+
         const matchesDateAssigned =
             dateAssignedFilter === '' ||
             item.dateAssigned === dateAssignedFilter;
-
         const matchesDueDate =
             dueDateFilter === '' ||
             item.dueDate === dueDateFilter;

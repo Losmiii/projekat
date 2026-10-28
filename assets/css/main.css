@@ -184,6 +184,10 @@ body {
     justify-content:center;
     height: 50px;
     
+    :hover {
+        scale: 1.1;
+        transition: 1s ease-in;
+    }
 }
 
 .new-task-button {
@@ -196,10 +200,13 @@ body {
     border-radius: 5px;
     background-color: rgb(222, 234, 230);
     font-weight: bold;
-    
+    cursor: pointer;
 
 }
 
+.filter {
+    cursor: pointer;
+}
 .button-section {
     display: flex;
     flex-direction: row;
@@ -207,8 +214,11 @@ body {
     align-items: center;
 }
 
-.table-section {
-
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 .plus-task {
