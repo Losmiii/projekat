@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h2>My Customers</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+   <select class="priority-input" id="priority">
+            <option selected value="">Choose Priority</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Low</option>
+        </select>
+        <button id="filterButton">Filter</button>
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:60%;">Name</th>
+    <th style="width:40%;">Country</th>
+    <th style="width:40%;">Priority</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Germany</td>
+    <td>Medium</td>
+  </tr>
+  <tr>
+    <td>Berglunds snabbkop</td>
+    <td>Sweden</td>
+    <td>Low</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>UK</td>
+    <td>High</td>
+  </tr>
+  <tr>
+    <td>Koniglich Essen</td>
+    <td>Germany</td>
+    <td>Medium</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Canada</td>
+    <td>Low</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Italy</td>
+    <td>High</td>
+  </tr>
+  <tr>
+    <td>North/South</td>
+    <td>UK</td>
+    <td>Medium</td>
+  </tr>
+  <tr>
+    <td>Paris specialites</td>
+    <td>France</td>
+    <td>Medium</td>
+  </tr>
+</table>
+
+<script>
+let filterSelect = document.getElementById('priority');
+// filterSelect.addEventListener('change', function() {
+//   let selectedValue = this.value;
+//   let table = document.getElementById('myTable');
+//   let rows = table.getElementsByTagName('tr');
+//   for (let i = 1; i < rows.length; i++) {
+//     let priorityCell = rows[i].getElementsByTagName('td')[2];
+//     if (selectedValue === '' || priorityCell.textContent === selectedValue) {
+//       rows[i].style.display = '';
+//     } else {
+//       rows[i].style.display = 'none';
+//     }
+//   }
+// });
+
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+const filterButton = document.getElementById('filterButton');
+filterButton.addEventListener('click', () => {
+  const selectedPriority = filterSelect.value;
+  const table = document.getElementById('myTable');
+  const rows = table.getElementsByTagName('tr');
+  for (let i = 1; i < rows.length; i++) {
+    const priorityCell = rows[i].getElementsByTagName('td')[2];
+    if (selectedPriority === '' || priorityCell.textContent === selectedPriority) {
+      rows[i].style.display = '';
+    } else {
+      rows[i].style.display = 'none';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

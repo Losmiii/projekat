@@ -9,52 +9,48 @@
 </head>
 <body>
 
-
-
     <dialog id="modal">
         <h3>Create New Task</h3>
 
-        <input type="text" id="title" placeholder="Title">
-        <small class="error" id="titleError"></small>
+        <form action="#" method="DELETE">
+                <input type="text" id="title" placeholder="Title">
+            <small class="error" id="titleError"></small>
 
-        <select class="priority-input" id="priority">
-            <option selected value="">Choose Priority</option>
-            <option>Medium</option>
-            <option>High</option>
-            <option>Low</option>
-        </select>
-        <small class="error" id="priorityError"></small>
+            <select class="priority-input" id="priority">
+                <option selected value="">Choose Priority</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Low">Low</option>
+            </select>
+            <small class="error" id="priorityError"></small>
 
-        <select class="status-input" id="status">
-            <option selected value="">Choose Status</option>
-            <option>Active</option>
-            <option>Inactive</option>
-        </select>
-        <small class="error" id="statusError"></small>
+            <select class="status-input" id="status">
+                <option selected value="">Choose Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <small class="error" id="statusError"></small>
 
             <input type="text" id="createdBy" placeholder="Created by">
             <small class="error" id="createdByError"></small>
 
-        <input type="date" id="dateAssigned">
-        <small class="error" id="dateAssignedError"></small>
+            <input type="date" id="dateAssigned">
+            <small class="error" id="dateAssignedError"></small>
 
-        <input type="date" id="dueDate">
-        <small class="error" id="dueDateError"></small>
+            <input type="date" id="dueDate">
+            <small class="error" id="dueDateError"></small>
 
-        <button id="addToTable">Add Task</button>
-        <button id="cancel">Cancel</button>
+            <button id="addToTable" type="submit">Add Task</button>
+            <button id="cancel">Cancel</button>
+        </form>
     </dialog>
-</div>
- 
 
-
-
-    <main class="container">      
+    <main class="container">
         <aside class="sidebar">
             <div class="logo">
                 <p>UI</p>
             </div>
-            
+
             <div class="icons">
                 <img class="home-picture" src="./assets/imgs/house-solid-full.svg" alt="home icon" />
                 <img class="home-picture" src="./assets/imgs/chart-bar-solid-full.svg" alt="chart icon" />
@@ -82,48 +78,45 @@
                 <h1 class="table-name">My Tasks</h1>
 
                 <div class="tasks">
-                    <div>
-                        Assigned Tasks
-                    </div>
-                    <div>
-                        Accepted Tasks
-                    </div>
-                    <div>
-                        Review Tasks
-                    </div>
+                    <div>Assigned Tasks</div>
+                    <div>Accepted Tasks</div>
+                    <div>Review Tasks</div>
                 </div>
-            <section class="button-section">
-             <div >   
-               <section class="dates-and-status">
-                    <div>
-                        <input class="date" type="date" />
-                    </div>
-                    <div>
-                        <select class="status">
-                            <option selected inactive value="">Choose Status</option>
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="filter">Filter</button>
-                    </div>
-                </div>  
 
-                <div>
-                    <div class="new-task">
-                        <div>
-                            <button class="new-task-button"><span class="plus-task">&plus;</span> Create New Task</button>  
-                        </div>
-                           
+                <section class="button-section">
+                    <div>
+                        <section class="dates-and-status">
+                            <div>
+                                <input class="date" id="filterDateAssigned" type="date" />
+                            </div>
+                            <div class="second-date">
+                                <input class="due-date" id="filterDueDate" type="date" />
+                            </div>
+                            <div>
+                                <select class="status" id="filterStatus">
+                                    <option selected value="">Choose Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="filter" onclick="filterTasks()">Filter</button>
+                            </div>
+                        </section>
                     </div>
-                 </div>
-                 
-                
-                    
+
+                    <div>
+                        <div class="new-task">
+                            <div>
+                                <button class="new-task-button"><span class="plus-task">&plus;</span> Create New Task</button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
-                    <section class="table-section">
-                        <table >
+
+                <section class="table-section">
+                    <table>
+                        <thead>
                             <tr>
                                 <th>Title</th>
                                 <th>Priority</th>
@@ -131,48 +124,38 @@
                                 <th>Created by</th>
                                 <th>Date Assigned</th>
                                 <th>Due Date</th>
-                                <th>  </th>
+                                <th></th>
                             </tr>
-                        </table>
-                    </section>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </section>
 
-                    <footer>
-                        <div>
-                            <p>Rows per page: </p>
-                        </div>
-                        
-                        <div>
+                <footer>
+                    <div>
+                        <p>Rows per page: </p>
+                    </div>
+
+                    <div>
                         <select class="page-number">
-                            <option selected inactive value="">1</option>
+                            <option selected value="">1</option>
                             <option value="1">2</option>
                             <option value="0">3</option>
                         </select>
-                        </div>
+                    </div>
 
-                        <div>
-                            <p>1-50 of 100</p>
-                        </div>
+                    <div>
+                        <p>1-50 of 100</p>
+                    </div>
 
-                        <div>
-                            <img class="arrows" src="assets/imgs/angle-left-solid-full.svg" alt="">
-                            <img class="arrows" src="assets/imgs/angle-right-solid-full.svg" alt="">
-                        </div>
-                    </footer>
-
-            </section> 
-
-
-            
-
-
-
-
+                    <div>
+                        <img class="arrows" src="assets/imgs/angle-left-solid-full.svg" alt="">
+                        <img class="arrows" src="assets/imgs/angle-right-solid-full.svg" alt="">
+                    </div>
+                </footer>
             </section>
         </section>
     </main>
-
-
-
 
 </body>
 </html>
