@@ -13,8 +13,6 @@ let dueDateInput = document.querySelector('#dueDate');
 
 
 
-
-
 let titleError = document.querySelector('#titleError');
 let priorityError = document.querySelector('#priorityError');
 let statusError = document.querySelector('#statusError');
@@ -22,26 +20,24 @@ let createdByError = document.querySelector('#createdByError');
 let dateAssignedError = document.querySelector('#dateAssignedError');
 let dueDateError = document.querySelector('#dueDateError');
 
-function showError(input, errorEl, message) {
-    input.classList.add('invalid');
-    errorEl.textContent = message;
-}
 
-function clearError(input, errorEl) {
-    input.classList.remove('invalid');
-    errorEl.textContent = '';
-}
+
 
 function clearErrors() {
-    clearError(titleInput, titleError);
-    clearError(priorityInput, priorityError);
-    clearError(statusInput, statusError);
-    clearError(createdByInput, createdByError);
-    clearError(dateAssignedInput, dateAssignedError);
-    clearError(dueDateInput, dueDateError);
+    titleError.textContent = '';
+    priorityError.textContent = '';
+    statusError.textContent = '';
+    createdByError.textContent = '';
+    dateAssignedError.textContent = '';
+    dueDateError.textContent = '';
+
+    titleInput.classList.remove('invalid');
+    priorityInput.classList.remove('invalid');
+    statusInput.classList.remove('invalid');
+    createdByInput.classList.remove('invalid');
+    dateAssignedInput.classList.remove('invalid');
+    dueDateInput.classList.remove('invalid');
 }
-
-
 
 function clearFields() {
     titleInput.value = '';
@@ -53,14 +49,13 @@ function clearFields() {
 }
 
 let saved = localStorage.getItem('tasks-table');
-if  (saved) {
-     table.innerHTML = saved;
+if (saved) {
+    table.innerHTML = saved;
 }
 
 function save() {
-      localStorage.setItem('tasks-table', table.innerHTML);
+    localStorage.setItem('tasks-table', table.innerHTML);
 }
-
 
 table.addEventListener('click', (e) => {
     if (e.target.matches('img[src*="trash-can"]')) {
@@ -90,42 +85,33 @@ modal.addEventListener('change', clearErrors);
 modal.addEventListener('close', clearErrors);
 
 addToTableBtn.addEventListener('click', () => {
-    clearErrors();
-    let valid = true;
-
-    if (titleInput.value.trim() === '') {
-        showError(titleInput, titleError, 'please enter Title');
-        valid = false;
-    }
-    if (priorityInput.value === '') {
-        showError(priorityInput, priorityError, 'plesa choose priority');
-        valid = false;
-    }
-    if (statusInput.value === '') {
-        showError(statusInput, statusError, 'Please choose status');
-        valid = false;
-    }
-    if (createdByInput.value.trim() === '') {
-        showError(createdByInput, createdByError, 'Please enter creator');
-        valid = false;
-    }
-    if (dateAssignedInput.value === '') {
-        showError(dateAssignedInput, dateAssignedError, 'Please enter date ');
-        valid = false;
-    }
-    if (dueDateInput.value === '') {
-        showError(dueDateInput, dueDateError, 'Please enter date');
-        valid = false;
-    }
-
-    if (!valid) return;
-
-    let title = titleInput.value;
+    let title = titleInput.value.trim();
     let priority = priorityInput.value;
     let status = statusInput.value;
-    let createdBy = createdByInput.value;
+    let createdBy = createdByInput.value.trim();
     let dateAssigned = dateAssignedInput.value;
     let dueDate = dueDateInput.value;
+
+    clearErrors();
+
+    if (title === '' || priority === '' || status === '' || createdBy === '' || dateAssigned === '' || dueDate === '') {
+
+        titleError.textContent = title === '' ? 'please enter title' : '';
+        priorityError.textContent = priority === '' ? 'Please choose priority' : '';
+        statusError.textContent = status === '' ? 'please choose status' : '';
+        createdByError.textContent = createdBy === '' ? 'please enter  task' : '';
+        dateAssignedError.textContent = dateAssigned === '' ? 'please enter date ' : '';
+        dueDateError.textContent = dueDate === '' ? 'lease enter date' : '';
+
+        titleInput.classList.toggle('invalid', title === '');
+        priorityInput.classList.toggle('invalid', priority === '');
+        statusInput.classList.toggle('invalid', status === '');
+        createdByInput.classList.toggle('invalid', createdBy === '');
+        dateAssignedInput.classList.toggle('invalid', dateAssigned === '');
+        dueDateInput.classList.toggle('invalid', dueDate === '');
+
+        return;
+    }
 
     let template = `
         <tr>
