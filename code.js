@@ -3,6 +3,10 @@ let openTaskBtn = document.querySelector('.new-task-button');
 let addToTableBtn = document.querySelector('#addToTable');
 let cancelBtn = document.querySelector('#cancel');
 let table = document.querySelector('table');
+let tbody = document.querySelector('table tbody');
+
+
+
 
 let titleInput = document.querySelector('#title');
 let priorityInput = document.querySelector('#priority');
@@ -10,6 +14,8 @@ let statusInput = document.querySelector('#status');
 let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
+
+
 
 
 
@@ -22,6 +28,67 @@ let dueDateError = document.querySelector('#dueDateError');
 
 
 
+
+function saveTableToLocalStorage() {
+    const rows = tbody.querySelectorAll('tr');
+    const tableData = [];
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+
+        tableData.push({
+            title: cells[0].textContent,
+            priority: cells[1].textContent,
+            status: cells[2].textContent,
+            createdBy: cells[3].textContent,
+            dateAssigned: cells[4].textContent,
+            dueDate: cells[5].textContent
+        });
+    });
+
+    localStorage.setItem('savedTableData', JSON.stringify(tableData));
+}
+
+
+
+function loadTableFromLocalStorage() {
+    const storedData = localStorage.getItem('savedTableData');
+
+    if (!storedData) {
+        return;
+    }
+
+    const tableData = JSON.parse(storedData);
+    tbody.innerHTML = '';
+
+    tableData.forEach(item => {
+        addRow(item);
+    });
+}
+
+
+
+function addRow(item) {
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+        <td>${item.title}</td>
+        <td class="priority">${item.priority}</td>
+        <td>${item.status}</td>
+        <td>${item.createdBy}</td>
+        <td>${item.dateAssigned}</td>
+        <td>${item.dueDate}</td>
+        <td>
+            <div class="table-icons">
+                <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
+                <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
+                <img src="assets/imgs/trash-can-solid-full.svg" alt="">
+            </div>
+        </td>
+    `;
+
+    tbody.appendChild(row);
+}
 
 function clearErrors() {
     titleError.textContent = '';
@@ -48,19 +115,16 @@ function clearFields() {
     dueDateInput.value = '';
 }
 
-let saved = localStorage.getItem('tasks-table');
-if (saved) {
-    table.innerHTML = saved;
+function filterTasks() {
+    const data = JSON.parse(localStorage.getItem('savedTableData')) || [];
+    console.log(data);
 }
 
-function save() {
-    localStorage.setItem('tasks-table', table.innerHTML);
-}
-
+// brisanje reda
 table.addEventListener('click', (e) => {
     if (e.target.matches('img[src*="trash-can"]')) {
         e.target.closest('tr').remove();
-        save();
+        saveTableToLocalStorage();
     }
 });
 
@@ -75,13 +139,10 @@ cancelBtn.addEventListener('click', () => {
     modal.close();
 });
 
-
 modal.addEventListener('input', clearErrors);
 
 
 modal.addEventListener('change', clearErrors);
-
-
 modal.addEventListener('close', clearErrors);
 
 addToTableBtn.addEventListener('click', () => {
@@ -97,11 +158,11 @@ addToTableBtn.addEventListener('click', () => {
     if (title === '' || priority === '' || status === '' || createdBy === '' || dateAssigned === '' || dueDate === '') {
 
         titleError.textContent = title === '' ? 'please enter title' : '';
-        priorityError.textContent = priority === '' ? 'Please choose priority' : '';
+        priorityError.textContent = priority === '' ? 'please choose priority' : '';
         statusError.textContent = status === '' ? 'please choose status' : '';
-        createdByError.textContent = createdBy === '' ? 'please enter  task' : '';
-        dateAssignedError.textContent = dateAssigned === '' ? 'please enter date ' : '';
-        dueDateError.textContent = dueDate === '' ? 'lease enter date' : '';
+        createdByError.textContent = createdBy === '' ? 'please enter creator' : '';
+        dateAssignedError.textContent = dateAssigned === '' ? 'please enter date' : '';
+        dueDateError.textContent = dueDate === '' ? 'please enter date' : '';
 
         titleInput.classList.toggle('invalid', title === '');
         priorityInput.classList.toggle('invalid', priority === '');
@@ -113,27 +174,12 @@ addToTableBtn.addEventListener('click', () => {
         return;
     }
 
-    let template = `
-        <tr>
-            <td>${title}</td>
-            <td class="priority">${priority}</td>
-            <td>${status}</td>
-            <td>${createdBy}</td>
-            <td>${dateAssigned}</td>
-            <td>${dueDate}</td>
-            <td>
-                <div class="table-icons">
-                    <img src="assets/imgs/file-arrow-down-solid-full.svg" alt="">
-                    <img src="assets/imgs/pen-to-square-solid-full.svg" alt="">
-                    <img src="assets/imgs/trash-can-solid-full.svg" alt="">
-                </div>
-            </td>
-        </tr>
-    `;
-
-    table.insertAdjacentHTML('beforeend', template);
-    save();
+    addRow({ title, priority, status, createdBy, dateAssigned, dueDate });
+    saveTableToLocalStorage();
 
     clearFields();
     modal.close();
 });
+
+
+loadTableFromLocalStorage();
