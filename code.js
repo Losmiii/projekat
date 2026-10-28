@@ -10,13 +10,11 @@ let tbody = document.querySelector('table tbody');
 
 let titleInput = document.querySelector('#title');
 let priorityInput = document.querySelector('#priority');
-let statusInput = document.querySelector('#status');
+let statusInput = document.querySelector('#filterStatus');
 let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
-
-
-
+let statusCreateTaskInput = document.querySelector('#status');
 
 
 let titleError = document.querySelector('#titleError');
@@ -26,7 +24,8 @@ let createdByError = document.querySelector('#createdByError');
 let dateAssignedError = document.querySelector('#dateAssignedError');
 let dueDateError = document.querySelector('#dueDateError');
 
-
+let filterDateAssignedInput = document.querySelector('#filterDateAssigned');
+let filterDueDateInput = document.querySelector('#filterDueDate');
 
 
 function saveTableToLocalStorage() {
@@ -48,7 +47,6 @@ function saveTableToLocalStorage() {
 
     localStorage.setItem('savedTableData', JSON.stringify(tableData));
 }
-
 
 
 function loadTableFromLocalStorage() {
@@ -90,6 +88,10 @@ function addRow(item) {
     tbody.appendChild(row);
 }
 
+
+
+
+
 function clearErrors() {
     titleError.textContent = '';
     priorityError.textContent = '';
@@ -117,10 +119,35 @@ function clearFields() {
 
 function filterTasks() {
     const data = JSON.parse(localStorage.getItem('savedTableData')) || [];
-    console.log(data);
+
+    const statusFilter = statusInput.value;
+    const dateAssignedFilter = filterDateAssignedInput.value;
+    const dueDateFilter = filterDueDateInput.value;
+
+    const filteredData = data.filter(item => {
+        const matchesStatus =
+            statusFilter === '' ||
+            item.status.toLowerCase() === statusFilter.toLowerCase();
+
+        const matchesDateAssigned =
+            dateAssignedFilter === '' ||
+            item.dateAssigned === dateAssignedFilter;
+
+        const matchesDueDate =
+            dueDateFilter === '' ||
+            item.dueDate === dueDateFilter;
+
+        return matchesStatus && matchesDateAssigned && matchesDueDate;
+    });
+
+    tbody.innerHTML = '';
+
+    filteredData.forEach(item => {
+        addRow(item);
+    });
 }
 
-// brisanje reda
+
 table.addEventListener('click', (e) => {
     if (e.target.matches('img[src*="trash-can"]')) {
         e.target.closest('tr').remove();
@@ -148,7 +175,7 @@ modal.addEventListener('close', clearErrors);
 addToTableBtn.addEventListener('click', () => {
     let title = titleInput.value.trim();
     let priority = priorityInput.value;
-    let status = statusInput.value;
+    let status = statusCreateTaskInput.value;
     let createdBy = createdByInput.value.trim();
     let dateAssigned = dateAssignedInput.value;
     let dueDate = dueDateInput.value;
@@ -166,7 +193,7 @@ addToTableBtn.addEventListener('click', () => {
 
         titleInput.classList.toggle('invalid', title === '');
         priorityInput.classList.toggle('invalid', priority === '');
-        statusInput.classList.toggle('invalid', status === '');
+        statusCreateTaskInput.classList.toggle('invalid', status === '');
         createdByInput.classList.toggle('invalid', createdBy === '');
         dateAssignedInput.classList.toggle('invalid', dateAssigned === '');
         dueDateInput.classList.toggle('invalid', dueDate === '');
@@ -174,7 +201,13 @@ addToTableBtn.addEventListener('click', () => {
         return;
     }
 
-    addRow({ title, priority, status, createdBy, dateAssigned, dueDate });
+    addRow({ 
+        title, 
+        priority, 
+        status, 
+        createdBy, 
+        dateAssigned, 
+        dueDate });
     saveTableToLocalStorage();
 
     clearFields();

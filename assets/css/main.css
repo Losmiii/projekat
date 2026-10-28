@@ -126,13 +126,24 @@ body {
     display: flex;
     flex-direction: row;
     
-    width: 25%;
     
     margin-top: 25px;
 }
 
 .date {
     margin-left: 30px;
+    margin-right: 10px;
+    appearance: none;
+    border: 1px solid rgb(203, 196, 196);
+    outline: 0;
+    height: 35px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: rgb(203, 196, 196);
+}
+.due-date {
+    margin-left: 10px;
     margin-right: 10px;
     appearance: none;
     border: 1px solid rgb(203, 196, 196);
@@ -299,12 +310,18 @@ footer {
 
 
 
-
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
 #modal input {
     padding: 10px;
     border: 1px solid rgb(166, 165, 165);
     font-size: 17px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 #modal button {
@@ -312,9 +329,8 @@ footer {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    margin-top: 10px;
 }
-
-
 
 
 .status-input, .priority-input {
@@ -322,6 +338,8 @@ footer {
     border: 1px solid grey;
     font-size: 17px;
     background-color: #FFFFFF;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 
