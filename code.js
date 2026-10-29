@@ -28,6 +28,11 @@ let filterDateAssignedInput = document.querySelector('#filterDateAssigned');
 let filterDueDateInput = document.querySelector('#filterDueDate');
 
 
+let deleteModal = document.querySelector('#deleteModal');
+let confirmDeleteBtn = document.querySelector('#confirmDelete');
+let cancelDeleteBtn = document.querySelector('#cancelDelete');
+let rowToDelete = null;
+
 function saveTableToLocalStorage() {
     const rows = tbody.querySelectorAll('tr');
     const tableData = [];
