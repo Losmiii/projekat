@@ -5,8 +5,10 @@ let cancelBtn = document.querySelector('#cancel');
 let table = document.querySelector('table');
 let tbody = document.querySelector('table tbody');
 
-
-
+let deleteModal = document.querySelector('#deleteModal');
+let confirmDeleteBtn = document.querySelector('#confirmDelete');
+let cancelDeleteBtn = document.querySelector('#cancelDelete');
+let rowToDelete = null;
 
 let titleInput = document.querySelector('#title');
 let priorityInput = document.querySelector('#priority');
@@ -15,7 +17,6 @@ let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
 let statusCreateTaskInput = document.querySelector('#status');
-
 
 let titleError = document.querySelector('#titleError');
 let priorityError = document.querySelector('#priorityError');
@@ -27,11 +28,6 @@ let dueDateError = document.querySelector('#dueDateError');
 let filterDateAssignedInput = document.querySelector('#filterDateAssigned');
 let filterDueDateInput = document.querySelector('#filterDueDate');
 
-
-let deleteModal = document.querySelector('#deleteModal');
-let confirmDeleteBtn = document.querySelector('#confirmDelete');
-let cancelDeleteBtn = document.querySelector('#cancelDelete');
-let rowToDelete = null;
 
 function saveTableToLocalStorage() {
     const rows = tbody.querySelectorAll('tr');
@@ -70,7 +66,6 @@ function loadTableFromLocalStorage() {
 }
 
 
-
 function addRow(item) {
     const row = document.createElement('tr');
 
@@ -92,9 +87,6 @@ function addRow(item) {
 
     tbody.appendChild(row);
 }
-
-
-
 
 
 function clearErrors() {
@@ -126,17 +118,17 @@ function filterTasks() {
     const data = JSON.parse(localStorage.getItem('savedTableData')) || [];
     const statusFilter = statusInput.value;
     const dateAssignedFilter = filterDateAssignedInput.value;
-     const dueDateFilter = filterDueDateInput.value;
+    const dueDateFilter = filterDueDateInput.value;
+
     const filteredData = data.filter(item => {
         const matchesStatus =
             statusFilter === '' ||
             item.status.toLowerCase() === statusFilter.toLowerCase();
 
-
-
         const matchesDateAssigned =
             dateAssignedFilter === '' ||
             item.dateAssigned === dateAssignedFilter;
+
         const matchesDueDate =
             dueDateFilter === '' ||
             item.dueDate === dueDateFilter;
@@ -152,12 +144,28 @@ function filterTasks() {
 }
 
 
+
 table.addEventListener('click', (e) => {
     if (e.target.matches('img[src*="trash-can"]')) {
-        e.target.closest('tr').remove();
-        saveTableToLocalStorage();
+        rowToDelete = e.target.closest('tr');
+        deleteModal.showModal();
     }
 });
+
+confirmDeleteBtn.addEventListener('click', () => {
+    if (rowToDelete) {
+        rowToDelete.remove();
+        saveTableToLocalStorage();
+        rowToDelete = null;
+    }
+    deleteModal.close();
+});
+
+cancelDeleteBtn.addEventListener('click', () => {
+    rowToDelete = null;
+    deleteModal.close();
+});
+
 
 openTaskBtn.addEventListener('click', () => {
     modal.showModal();
@@ -171,8 +179,6 @@ cancelBtn.addEventListener('click', () => {
 });
 
 modal.addEventListener('input', clearErrors);
-
-
 modal.addEventListener('change', clearErrors);
 modal.addEventListener('close', clearErrors);
 
@@ -205,13 +211,14 @@ addToTableBtn.addEventListener('click', () => {
         return;
     }
 
-    addRow({ 
-        title, 
-        priority, 
-        status, 
-        createdBy, 
-        dateAssigned, 
-        dueDate });
+    addRow({
+        title,
+        priority,
+        status,
+        createdBy,
+        dateAssigned,
+        dueDate
+    });
     saveTableToLocalStorage();
 
     clearFields();
