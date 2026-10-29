@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Table Row</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        button { cursor: pointer; padding: 4px 8px; margin-right: 4px; }
+        input { width: 90%; padding: 4px; }
+    </style>
+</head>
+<body>
+
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Alice Johnson</td>
+                <td>alice@example.com</td>
+                <td>
+                    <button class="edit-btn">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Bob Smith</td>
+                <td>bob@example.com</td>
+                <td>
+                    <button class="edit-btn">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<script>
+document.querySelector("#userTable tbody").addEventListener("click", function(event) {
+    const target = event.target;
+
+    // 1. HANDLE EDIT BUTTON CLICK
+    if (target.classList.contains("edit-btn")) {
+        const row = target.closest("tr");
+        const cells = row.querySelectorAll("td");
+
+        // Loop through all data cells (excluding the last cell containing the action buttons)
+        for (let i = 0; i < cells.length - 1; i++) {
+            const currentText = cells[i].textContent;
+            // Store original text value inside a data attribute to support cancellation
+            cells[i].setAttribute("data-original-value", currentText);
+            // Replace cell content with an editable text input
+            cells[i].innerHTML = `<input type="text" value="${currentText}">`;
+        }
+
+        // Swap the action buttons
+        cells[cells.length - 1].innerHTML = `
+            <button class="save-btn">Save</button>
+            <button class="cancel-btn">Cancel</button>
+        `;
+    }
+
+    // 2. HANDLE SAVE BUTTON CLICK
+    if (target.classList.contains("save-btn")) {
+        const row = target.closest("tr");
+        const cells = row.querySelectorAll("td");
+
+        // Commit input values back into pure cell text
+        for (let i = 0; i < cells.length - 1; i++) {
+            const input = cells[i].querySelector("input");
+            cells[i].textContent = input.value;
+        }
+
+        // Restore original action button
+        cells[cells.length - 1].innerHTML = `<button class="edit-btn">Edit</button>`;
+    }
+
+    // 3. HANDLE CANCEL BUTTON CLICK
+    if (target.classList.contains("cancel-btn")) {
+        const row = target.closest("tr");
+        const cells = row.querySelectorAll("td");
+
+        // Revert cell text content back to data-original-value
+        for (let i = 0; i < cells.length - 1; i++) {
+            cells[i].textContent = cells[i].getAttribute("data-original-value");
+        }
+
+        // Restore original action button
+        cells[cells.length - 1].innerHTML = `<button class="edit-btn">Edit</button>`;
+    }
+});
+</script>
+
+</body>
+</html>
