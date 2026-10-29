@@ -234,7 +234,7 @@ table, td, th {
 table {
   margin-top: 30px;
   border-collapse: collapse;
-  width: 95%;
+  width: 96%;
   border: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin-left: 25px;
@@ -388,4 +388,20 @@ form {
 
 #cancelDelete {
     background-color: rgb(222, 234, 230);
+}
+
+.save-btn {
+    background-color: #C896E7;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: rgb(222, 234, 230);
+    color: gray;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
 }

@@ -108,11 +108,11 @@ function startEdit(row) {
  
         let field;
         if (i === 1) {
-            // priority: kopiramo opcije iz modala
+
             field = document.createElement('select');
             field.innerHTML = priorityInput.innerHTML;
         } else if (i === 2) {
-            // status: kopiramo opcije iz modala
+
             field = document.createElement('select');
             field.innerHTML = statusCreateTaskInput.innerHTML;
         } else {
@@ -125,7 +125,7 @@ function startEdit(row) {
         cells[i].appendChild(field);
     }
  
-    // sačuvamo ikonice da ih posle vratimo
+
     cells[6].dataset.original = cells[6].innerHTML;
     cells[6].innerHTML = `
         <button class="save-btn">Save</button>
@@ -141,7 +141,7 @@ function finishEdit(row, save) {
 
         for (let i = 0; i < 6; i++) {
             if (cells[i].firstElementChild.value.trim() === '') {
-                alert('Sva polja moraju biti popunjena.');
+
                 return;
             }
         }
