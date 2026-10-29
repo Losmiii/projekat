@@ -291,7 +291,7 @@ footer {
     color: red;
 }
 
-#modal {
+#modal, #deleteModal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -307,13 +307,13 @@ footer {
 }
 
 
-#modal[open] {
+#modal[open], #deleteModal[open] {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-#modal::backdrop {
+#modal::backdrop , #deleteModal::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -334,7 +334,7 @@ form {
     margin-top: 10px;
 }
 
-#modal button {
+#modal button , #deleteModal button {
     padding: 10px;
     border: none;
     border-radius: 6px;
@@ -366,4 +366,26 @@ form {
 
 #modal .error:empty {
     display: none;
+}
+
+.delete-text {
+    color: gray;}
+
+.delete-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.delete-buttons button {
+    flex: 1;
+}
+
+#confirmDelete {
+    background-color: #e74c3c;
+    color: #fff;
+    font-weight: bold;
+}
+
+#cancelDelete {
+    background-color: rgb(222, 234, 230);
 }
