@@ -34,7 +34,7 @@ let cancelDeleteBtn = document.querySelector('#cancelDelete');
 //ovde pamtim koji red treba da se obrise, na pocetku nijedan
 let rowToDelete = null;
 let currentPage = 1;
-let rowsPerPage = 5;
+let rowsPerPage = 4;
 let prevPageBtn = document.querySelector('#prevPage');
 let nextPageBtn = document.querySelector('#nextPage');
 let pageInfo = document.querySelector('#pageInfo');
