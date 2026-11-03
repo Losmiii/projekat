@@ -1,3 +1,4 @@
+
 //domom selektujem html i stavljam u neke promenljive da ne moram uvek da kucam document.queryselector
 let modal = document.querySelector('#modal');
 let openTaskBtn = document.querySelector('.new-task-button');
@@ -26,22 +27,18 @@ let dueDateError = document.querySelector('#dueDateError');
 let filterDateAssignedInput = document.querySelector('#filterDateAssigned');
 let filterDueDateInput = document.querySelector('#filterDueDate');
  
- 
+
 let deleteModal = document.querySelector('#deleteModal');
 let confirmDeleteBtn = document.querySelector('#confirmDelete');
 let cancelDeleteBtn = document.querySelector('#cancelDelete');
 //ovde pamtim koji red treba da se obrise, na pocetku nijedan
 let rowToDelete = null;
-
-//trenutna strana koja se prikazuje, krece od prve
 let currentPage = 1;
-//koliko taskova se prikazuje po strani
 let rowsPerPage = 5;
-//leva i desna strelica u footeru
 let prevPageBtn = document.querySelector('#prevPage');
 let nextPageBtn = document.querySelector('#nextPage');
-//tekst u footeru npr 1-5 of 10
 let pageInfo = document.querySelector('#pageInfo');
+let rowsSelect = document.querySelector('#rowsSelect');
  
 
 //cuvam podatke u local storage
@@ -284,7 +281,7 @@ function filterTasks() {
     });
     //posle filtriranja vracam se na prvu stranu
     currentPage = 1;
-    //i prikazujem samo prvih 5 redova
+    //i prikazujem samo redove sa prve strane
     showPage();
 }
  
@@ -419,7 +416,7 @@ addToTableBtn.addEventListener('click', () => {
 function showPage() {
     //uzimam sve redove iz tabele
     const rows = tbody.querySelectorAll('tr');
-    //racunam koliko ima strana (broj redova / 5 zaokruzeno na vise), minimum je 1
+    //racunam koliko ima strana (broj redova / rowsPerPage zaokruzeno na vise), minimum je 1
     const totalPages = Math.max(1, Math.ceil(rows.length / rowsPerPage));
 
     //ako sam bio na strani koja vise ne postoji (npr. obrisao sam sve sa nje) vracam se na poslednju
@@ -427,7 +424,7 @@ function showPage() {
         currentPage = totalPages;
     }
 
-    //start je index prvog reda na ovoj strani (strana 2 -> index 5)
+    //start je index prvog reda na ovoj strani (npr. strana 2 sa 5 redova -> index 5)
     const start = (currentPage - 1) * rowsPerPage;
     //end je index do kog se prikazuje (ne ukljucujuci njega)
     const end = start + rowsPerPage;
@@ -461,13 +458,23 @@ prevPageBtn.addEventListener('click', () => {
 nextPageBtn.addEventListener('click', () => {
     //racunam ukupan broj strana
     const totalPages = Math.ceil(tbody.querySelectorAll('tr').length / rowsPerPage);
-    //idem napred samo ako nisam vec na poslednjoj strani
+    //idem napred samo ako nisam vec na poslednjoj stranis
     if (currentPage < totalPages) {
         //povecavam broj strane
         currentPage++;
         //prikazujem tu stranu
         showPage();
     }
+});
+
+//kad promenim broj redova po strani u dropdownu
+rowsSelect.addEventListener('change', () => {
+    //uzimam izabranu vrednost iz selecta, Number je pretvara iz stringa u broj
+    rowsPerPage = Number(rowsSelect.value);
+    //vracam se na prvu stranu da ne ostanem na strani koja mozda vise ne postoji
+    currentPage = 1;
+    //ponovo prikazujem redove po novom broju
+    showPage();
 });
  
  //uctivama iz locala
