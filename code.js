@@ -1,30 +1,21 @@
 //domom selektujem html i stavljam u neke promenljive da ne moram uvek da kucam document.queryselector
 let modal = document.querySelector('#modal');
-//dugme za otvaranje modala za novi task
 let openTaskBtn = document.querySelector('.new-task-button');
-//dugme add task unutar modala
 let addToTableBtn = document.querySelector('#addToTable');
-//dugme cancel unutar modala
 let cancelBtn = document.querySelector('#cancel');
-//cela tabela
 let table = document.querySelector('table');
-//telo tabele, tu idu redovi sa taskovima
 let tbody = document.querySelector('table tbody');
  
  
  
-//inputi iz modala za novi task
 let titleInput = document.querySelector('#title');
 let priorityInput = document.querySelector('#priority');
-//ovo je select za filter statusa (ne iz modala)
 let statusInput = document.querySelector('#filterStatus');
 let createdByInput = document.querySelector('#createdBy');
 let dateAssignedInput = document.querySelector('#dateAssigned');
 let dueDateInput = document.querySelector('#dueDate');
-//ovo je select za status iz modala
 let statusCreateTaskInput = document.querySelector('#status');
  
-//mesta gde ispisujem greske ispod inputa
 let titleError = document.querySelector('#titleError');
 let priorityError = document.querySelector('#priorityError');
 let statusError = document.querySelector('#statusError');
@@ -32,12 +23,10 @@ let createdByError = document.querySelector('#createdByError');
 let dateAssignedError = document.querySelector('#dateAssignedError');
 let dueDateError = document.querySelector('#dueDateError');
  
-//inputi za datume u filteru
 let filterDateAssignedInput = document.querySelector('#filterDateAssigned');
 let filterDueDateInput = document.querySelector('#filterDueDate');
  
  
-//modal za potvrdu brisanja i njegova dva dugmeta
 let deleteModal = document.querySelector('#deleteModal');
 let confirmDeleteBtn = document.querySelector('#confirmDelete');
 let cancelDeleteBtn = document.querySelector('#cancelDelete');
