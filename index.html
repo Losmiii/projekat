@@ -12,8 +12,8 @@
     <dialog id="modal">
         <h3>Create New Task</h3>
 
-        <form action="#" method="DELETE">
-                <input type="text" id="title" placeholder="Title">
+        <form action="#">
+            <input type="text" id="title" placeholder="Title">
             <small class="error" id="titleError"></small>
 
             <select class="priority-input" id="priority">
@@ -41,19 +41,19 @@
             <small class="error" id="dueDateError"></small>
 
             <button id="addToTable" type="submit">Add Task</button>
-            <button id="cancel">Cancel</button>
+            <button id="cancel" type="button">Cancel</button>
         </form>
     </dialog>
 
     <dialog id="deleteModal">
-    <h3>si siguran</h3>
-    <p class="delete-text">sve ce ode</p>
+        <h3>si siguran</h3>
+        <p class="delete-text">sve ce ode</p>
 
-    <div class="delete-buttons">
-        <button type="button" id="confirmDelete">delete</button>
-        <button type="button" id="cancelDelete">cancel</button>
-    </div>
-</dialog>
+        <div class="delete-buttons">
+            <button type="button" id="confirmDelete">delete</button>
+            <button type="button" id="cancelDelete">cancel</button>
+        </div>
+    </dialog>
 
     <main class="container">
         <aside class="sidebar">
@@ -73,13 +73,15 @@
 
         <section class="page">
             <header class="search-and-notifications">
-                <div class="">
-                    <form id="search-form" action="/search" method="GET">
+                <div>
+                    <form id="search-form" action="#">
                         <div class="search-container" id="search-container">
-                        <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
-                        <button type="button" class="search-btn" id="search-btn">
-                            <i class="fas fa-search"></i>
-                        </button>
+                            <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+
+                            <button type="button" class="search-btn" id="search-btn">
+
+                                <img src="./assets/imgs/magnifying-glass-solid-full.svg" alt="search icon">
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -155,8 +157,8 @@
 
                     <div>
                         <select class="page-number" id="rowsSelect">
-                            <option selected value="5">4</option>
-                            <option value="10">8</option>
+                            <option selected value="4">4</option>
+                            <option value="8">8</option>
                         </select>
                     </div>
 
