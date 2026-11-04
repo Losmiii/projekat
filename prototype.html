@@ -1,116 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Expanding Search Bar</title>
+  
+  <!-- Font Awesome CDN for the search icon -->
+  <link rel="stylesheet" href="https://cloudflare.com">
 
   <style>
-    .container {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f4f7f6;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
     }
 
-    th, td {
-      border: 1px solid black;
-      padding: 10px;
+    /* Main Container */
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      height: 50px;
+      padding: 5px;
+      border-radius: 50px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: width 0.4s ease;
+      width: 50px; /* Collapsed width */
+      overflow: hidden;
     }
 
-    button {
-      padding: 10px;
+    /* Active/Expanded State via JavaScript */
+    .search-container.active {
+      width: 300px; /* Expanded width */
     }
 
-    #openBtn {
-      margin-bottom: 10px;
-      
+    /* The Input Field */
+    .search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 0;
+      padding: 0;
+      font-size: 16px;
+      color: #333;
+      transition: width 0.4s ease, padding 0.4s ease;
+      opacity: 0;
     }
 
-    dialog input {
-      display: block;
-      padding: 10px;
-      margin-bottom: 10px;
-      width: 200px;
+    .search-container.active .search-input {
+      width: 100%;
+      padding: 0 15px 0 10px;
+      opacity: 1;
     }
 
+    /* The Clickable Icon Button */
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #555;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+      /* Ensure button stays pinned to the right edge */
+      position: absolute;
+      right: 5px;
+    }
+
+    .search-btn:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <button id="openBtn">Add</button>
+  <form id="search-form" action="/search" method="GET">
+    <div class="search-container" id="search-container">
+      <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+      <button type="button" class="search-btn" id="search-btn">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </form>
 
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Country</th>
-        <th>Action</th>
-      </tr>
-    </table>
-  </div>
+  <script>
+    const searchContainer = document.getElementById('search-container');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const searchForm = document.getElementById('search-form');
 
-  <dialog id="modal">
-    <h3>Add new person</h3>
-    <input type="text" id="name" placeholder="Enter name">
-    <input type="number" id="age" placeholder="Enter age">
-    <input type="text" id="country" placeholder="Enter country">
-    <button id="addToTable">Add to table</button>
-    <button id="cancel">Cancel</button>
-  </dialog>
+    searchBtn.addEventListener('click', (e) => {
+      // If the search bar isn't open yet, prevent form submission and open it
+      if (!searchContainer.classList.contains('active')) {
+        e.preventDefault(); 
+        searchContainer.classList.add('active');
+        searchInput.focus(); // Pull focus into the input immediately
+      } else {
+        // If it's already open and empty, close it instead of searching nothing
+        if (searchInput.value.trim() === "") {
+          e.preventDefault();
+          searchContainer.classList.remove('active');
+        } else {
+          // If there is text, change button type to submit the form
+          searchBtn.type = "submit";
+        }
+      }
+    });
 
- <script>
-  
-  let modal = document.querySelector('#modal');
-  let openBtn = document.querySelector('#openBtn');
-  let addToTableBtn = document.querySelector('#addToTable');
-  let cancelBtn = document.querySelector('#cancel');
-  let table = document.querySelector('table');
+    // Optional: Close the search bar if the user clicks anywhere outside of it
+    document.addEventListener('click', (e) => {
+      if (!searchContainer.contains(e.target) && searchInput.value.trim() === "") {
+        searchContainer.classList.remove('active');
+      }
+    });
+  </script>
 
-  let nameInput = document.querySelector('#name');
-  let ageInput = document.querySelector('#age');
-  let countryInput = document.querySelector('#country');
-
-
-
-   
-
-  openBtn.addEventListener('click', function () {
-    modal.showModal();
-    nameInput.focus();
-  });
-
-  cancelBtn.addEventListener('click', function () {
-    modal.close();
-  });
-
-  addToTableBtn.addEventListener('click', function () {
-    let name = nameInput.value;
-    let age = ageInput.value;
-    let country = countryInput.value;
-
-    if (name === '' || age === '' || country === '') {
-      alert('Please enter data!');
-      return;
-    }
-
-    let template = `
-      <tr>
-        <td>${name}</td>
-        <td>${age}</td>
-        <td>${country}</td>
-        <td><button onclick="this.closest('tr').remove(); save()">delete</button></td>
-      </tr>`;
-
-    table.insertAdjacentHTML('beforeend', template);
-   
-    nameInput.value = '';
-    ageInput.value = '';
-    countryInput.value = '';
-    modal.close();
-  });
-  
-</script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/main.css">
-    <script src="code.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -73,8 +73,15 @@
 
         <section class="page">
             <header class="search-and-notifications">
-                <div class="search">
-                    <img class="search-icon" src="assets/imgs/magnifying-glass-solid-full.svg" alt="search icon">
+                <div class="">
+                    <form id="search-form" action="/search" method="GET">
+                        <div class="search-container" id="search-container">
+                        <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
+                        <button type="button" class="search-btn" id="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="notification">
                     <img src="assets/imgs/bell-regular-full.svg" alt="notification icon">

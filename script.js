@@ -39,7 +39,9 @@ let prevPageBtn = document.querySelector('#prevPage');
 let nextPageBtn = document.querySelector('#nextPage');
 let pageInfo = document.querySelector('#pageInfo');
 let rowsSelect = document.querySelector('#rowsSelect');
- 
+
+let searchIcon = document.querySelector('#search-icon');
+
 
 //cuvam podatke u local storage
 function saveTableToLocalStorage() {
@@ -362,7 +364,7 @@ modal.addEventListener('close', clearErrors);
  
 //kad kliklnem dugme add task dodajem ove stvari
 addToTableBtn.addEventListener('click', () => {
-    //uzimam vrednosti iz svih polja, trim skida razmake sa pocetka i kraja
+    //uzimam vrednosti iz svih polja, trim skida razmake
     let title = titleInput.value.trim();
     let priority = priorityInput.value;
     let status = statusCreateTaskInput.value;
@@ -424,7 +426,7 @@ function showPage() {
         currentPage = totalPages;
     }
 
-    //start je index prvog reda na ovoj strani (npr. strana 2 sa 5 redova -> index 5)
+    //start je index prvog reda na ovoj strani npr. strana 2 sa 5 redova -> index 5
     const start = (currentPage - 1) * rowsPerPage;
     //end je index do kog se prikazuje (ne ukljucujuci njega)
     const end = start + rowsPerPage;
