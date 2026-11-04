@@ -475,7 +475,7 @@ function showPage() {
         }
     });
 
-    //from je redni broj prvog prikazanog reda, ako nema redova onda 0
+    //from je redni broj prvog prikazanog reda  ako nema redova onda 0
     const from = matchingRows.length === 0 ? 0 : start + 1;
     //to je redni broj poslednjeg prikazanog reda, ne sme da predje ukupan broj redova
     const to = Math.min(end, matchingRows.length);
@@ -505,7 +505,7 @@ nextPageBtn.addEventListener('click', () => {
 
 //kad promenim broj redova po strani u dropdownu
 rowsSelect.addEventListener('change', () => {
-    //uzimam izabranu vrednost iz selecta, Number je pretvara iz stringa u broj
+    //uzimam izabranu vrednost iz selecta  Number je pretvara iz stringa u broj
     rowsPerPage = Number(rowsSelect.value);
     //vracam se na prvu stranu da ne ostanem na strani koja mozda vise ne postoji
     currentPage = 1;
@@ -515,18 +515,26 @@ rowsSelect.addEventListener('change', () => {
 
 //SEARCH BAR
 
+//zatvara search bar nazad u ikonicu
+function closeSearch() {
+    searchContainer.classList.remove('active');
+    //ako je nesto ukucano, oznacavam ikonicu da se zna da je search aktivan
+    searchContainer.classList.toggle('has-query', searchInput.value.trim() !== '');
+}
+
 //klik na lupu otvara/zatvara search input
 searchBtn.addEventListener('click', () => {
-    searchContainer.classList.toggle('active');
-
     if (searchContainer.classList.contains('active')) {
-        //ako se otvorio, odmah fokusiram input da mogu da kucam
-        searchInput.focus();
-    } else {
-        //ako se zatvorio, brisem tekst i vracam sve redove
+        //ako je otvoren, zatvaram ga i brisem tekst pa se vracaju svi redovi
         searchInput.value = '';
+        closeSearch();
         currentPage = 1;
         showPage();
+    } else {
+        //ako je zatvoren, otvaram ga i fokusiram input
+        searchContainer.classList.add('active');
+        searchContainer.classList.remove('has-query');
+        searchInput.focus();
     }
 });
 
@@ -537,9 +545,26 @@ searchInput.addEventListener('input', () => {
     showPage();
 });
 
-//ako pritisnem enter u searchu ne dam da se stranica osvezi
+//enter ne osvezava stranicu, nego zatvara search bar (rezultati ostaju)
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    closeSearch();
+    searchInput.blur();
+});
+
+//klik bilo gde van search bara ga zatvara
+document.addEventListener('click', (e) => {
+    if (searchContainer.classList.contains('active') && !searchContainer.contains(e.target)) {
+        closeSearch();
+    }
+});
+
+//escape takodje zatvara search bar
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeSearch();
+        searchInput.blur();
+    }
 });
 
 
