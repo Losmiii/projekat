@@ -44,6 +44,13 @@ let searchInput = document.getElementById('search-input');
 let searchBtn = document.getElementById('search-btn');
 let searchForm = document.getElementById('search-form');
 
+//zvonce i dropdown za notifikacije
+let bellBtn = document.getElementById('bell-btn');
+let dropdownMenu = document.getElementById('dropdown-menu');
+
+//ikonica za promenu teme
+let themeBtn = document.getElementById('theme-btn');
+
 //ovde pamtim sta je izabrano u filteru (primenjuje se tek kad kliknem Filter)
 let appliedFilters = {
     status: '',
@@ -475,7 +482,7 @@ function showPage() {
         }
     });
 
-    //from je redni broj prvog prikazanog reda  ako nema redova onda 0
+    //from je redni broj prvog prikazanog reda, ako nema redova onda 0
     const from = matchingRows.length === 0 ? 0 : start + 1;
     //to je redni broj poslednjeg prikazanog reda, ne sme da predje ukupan broj redova
     const to = Math.min(end, matchingRows.length);
@@ -505,7 +512,7 @@ nextPageBtn.addEventListener('click', () => {
 
 //kad promenim broj redova po strani u dropdownu
 rowsSelect.addEventListener('change', () => {
-    //uzimam izabranu vrednost iz selecta  Number je pretvara iz stringa u broj
+    //uzimam izabranu vrednost iz selecta, Number je pretvara iz stringa u broj
     rowsPerPage = Number(rowsSelect.value);
     //vracam se na prvu stranu da ne ostanem na strani koja mozda vise ne postoji
     currentPage = 1;
@@ -513,7 +520,6 @@ rowsSelect.addEventListener('change', () => {
 });
 
 
-//SEARCH BAR
 
 //zatvara search bar nazad u ikonicu
 function closeSearch() {
@@ -566,6 +572,48 @@ searchInput.addEventListener('keydown', (e) => {
         searchInput.blur();
     }
 });
+
+
+
+//klik na zvonce otvara/zatvara dropdown
+bellBtn.addEventListener('click', () => {
+    dropdownMenu.classList.toggle('active');
+    bellBtn.setAttribute('aria-expanded', dropdownMenu.classList.contains('active'));
+});
+
+//klik bilo gde van zvonca i dropdowna ga zatvara
+document.addEventListener('click', (e) => {
+    if (!dropdownMenu.contains(e.target) && !bellBtn.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+        bellBtn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+
+
+
+
+//slike za ikonicu: mesec u light modu, sunce u dark modu
+const moonIcon = './assets/imgs/moon-regular-full.svg';
+const sunIcon = './assets/imgs/sun-regular-full.svg';
+
+//ukljucuje ili iskljucuje dark mode i pamti izbor
+function setTheme(dark) {
+    //dodajem ili skidam klasu dark na body
+    document.body.classList.toggle('dark', dark);
+    //menjam ikonicu
+    themeBtn.src = dark ? sunIcon : moonIcon;
+    //pamtim izbor u localstorage
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+
+//klik na ikonicu prebacuje temu
+themeBtn.addEventListener('click', () => {
+    setTheme(!document.body.classList.contains('dark'));
+});
+
+//pri ucitavanju stranice vracam sacuvanu temu
+setTheme(localStorage.getItem('theme') === 'dark');
 
 
 //uctivama iz locala

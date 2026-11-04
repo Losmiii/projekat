@@ -3,132 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expanding Search Bar</title>
-  
-  <!-- Font Awesome CDN for the search icon -->
-  <link rel="stylesheet" href="https://cloudflare.com">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #f4f7f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-
-    /* Main Container */
-    .search-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      background-color: #ffffff;
-      height: 50px;
-      padding: 5px;
-      border-radius: 50px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: width 0.4s ease;
-      width: 50px; /* Collapsed width */
-      overflow: hidden;
-    }
-
-    /* Active/Expanded State via JavaScript */
-    .search-container.active {
-      width: 300px; /* Expanded width */
-    }
-
-    /* The Input Field */
-    .search-input {
-      background: transparent;
-      border: none;
-      outline: none;
-      width: 0;
-      padding: 0;
-      font-size: 16px;
-      color: #333;
-      transition: width 0.4s ease, padding 0.4s ease;
-      opacity: 0;
-    }
-
-    .search-container.active .search-input {
-      width: 100%;
-      padding: 0 15px 0 10px;
-      opacity: 1;
-    }
-
-    /* The Clickable Icon Button */
-    .search-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #555;
-      font-size: 18px;
-      transition: background-color 0.3s ease;
-      /* Ensure button stays pinned to the right edge */
-      position: absolute;
-      right: 5px;
-    }
-
-    .search-btn:hover {
-      background-color: #f0f0f0;
-    }
-  </style>
+  <title>Document</title>
 </head>
+<style>
+  .notification-wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+}
+
+.notification-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #e53e3e;
+  color: white;
+  font-size: 0.70rem;
+  padding: 2px 5px;
+  border-radius: 999px;
+}
+
+.notification-dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 280px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.notification-dropdown.active {
+  display: block;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.notification-list li {
+  padding: 10px 12px;
+  border-bottom: 1px. solid #f1f5f9;
+  font-size: 0.85rem;
+}
+
+.notification-list li.unread {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+</style>
 <body>
+  
+  <div class="notification-wrapper">
+  <!-- Trigger Button -->
+  <button class="notification-btn" id="bell-btn" aria-haspopup="true" aria-expanded="false">
+    🔔
+    <span class="badge">3</span>
+  </button>
 
-  <form id="search-form" action="/search" method="GET">
-    <div class="search-container" id="search-container">
-      <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
-      <button type="button" class="search-btn" id="search-btn">
-        <i class="fas fa-search"></i>
-      </button>
+  <!-- Dropdown Menu Panel -->
+  <div class="notification-dropdown" id="dropdown-menu">
+    <div class="dropdown-header">
+      <span>Notifications</span>
+      <span class="clear-all">Mark all read</span>
     </div>
-  </form>
+    <ul class="notification-list">
+      <li class="unread">New comment on your post</li>
+      <li>Your profile was updated</li>
+      <li>Server backup completed</li>
+    </ul>
+  </div>
+</div>
 
-  <script>
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.getElementById('search-input');
-    const searchBtn = document.getElementById('search-btn');
-    const searchForm = document.getElementById('search-form');
 
-    searchBtn.addEventListener('click', (e) => {
-      // If the search bar isn't open yet, prevent form submission and open it
-      if (!searchContainer.classList.contains('active')) {
-        e.preventDefault(); 
-        searchContainer.classList.add('active');
-        searchInput.focus(); // Pull focus into the input immediately
-      } else {
-        // If it's already open and empty, close it instead of searching nothing
-        if (searchInput.value.trim() === "") {
-          e.preventDefault();
-          searchContainer.classList.remove('active');
-        } else {
-          // If there is text, change button type to submit the form
-          searchBtn.type = "submit";
-        }
-      }
-    });
+<script>
+  const bellBtn = document.getElementById('bell-btn');
+const dropdownMenu = document.getElementById('dropdown-menu');
 
-    // Optional: Close the search bar if the user clicks anywhere outside of it
-    document.addEventListener('click', (e) => {
-      if (!searchContainer.contains(e.target) && searchInput.value.trim() === "") {
-        searchContainer.classList.remove('active');
-      }
-    });
-  </script>
+bellBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  dropdownMenu.classList.toggle('active');
+  const expanded = dropdownMenu.classList.contains('active');
+  bellBtn.setAttribute('aria-expanded', expanded);
+});
 
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (!dropdownMenu.contains(e.target) && !bellBtn.contains(e.target)) {
+    dropdownMenu.classList.remove('active');
+    bellBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+</script>
 </body>
 </html>

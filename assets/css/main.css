@@ -51,6 +51,10 @@ body {
     object-fit: contain;
 }
 
+#theme-btn {
+    cursor: pointer;
+}
+
 .icons {
     margin-top: 30px;
     display: flex;
@@ -404,14 +408,12 @@ form {
     cursor: pointer;
 }
 
-/* ===== SEARCH BAR ===== */
 
-/* forma u headeru ne sme da ima gap od globalnog form pravila */
+
 #search-form {
     display: block;
 }
 
-/* zatvoren: samo krug sa lupom */
 .search-container {
     position: relative;
     display: flex;
@@ -424,7 +426,6 @@ form {
     transition: width 0.4s ease, border-color 0.4s ease;
 }
 
-/* otvoren: siri se i dobija ivicu */
 .search-container.active {
     width: 300px;
     border-color: rgb(203, 196, 196);
@@ -444,7 +445,6 @@ form {
 
 .search-container.active .search-input {
     width: 100%;
-    /* desno ostavljam mesta za dugme sa lupom */
     padding: 0 45px 0 15px;
     opacity: 1;
 }
@@ -453,8 +453,8 @@ form {
     background: none;
     border: none;
     cursor: pointer;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -470,9 +470,178 @@ form {
     background-color: #f0f0f0;
 }
 
-/* slika lupe unutar dugmeta */
 .search-btn img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 25px;
     object-fit: contain;
 }
+
+.search-container.has-query .search-btn {
+    background-color: #C896E7;
+}
+
+
+
+.notification {
+    position: relative;
+}
+
+.notification-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 280px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.notification-dropdown.active {
+    display: block;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.clear-all {
+    color: #C896E7;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.notification-list {
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.notification-list li {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.85rem;
+}
+
+
+
+
+
+body.dark {
+    background-color: blueviolet;
+    color: #f1f1f1;
+
+    color-scheme: dark;
+}
+
+body.dark .container,
+body.dark .content,
+body.dark .tasks {
+    background-color: black;
+}
+
+body.dark .sidebar {
+    background-color: #424283;
+}
+
+body.dark img {
+    filter: invert(1);
+}
+
+
+body.dark table {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark th {
+    background-color: #16163b;
+    color: #b5b5c3;
+}
+
+body.dark th,
+body.dark td {
+    border-bottom-color: #22224d;
+}
+
+
+body.dark .date,
+body.dark .due-date,
+body.dark .status,
+body.dark .page-number,
+body.dark td input,
+body.dark td select {
+    background-color: grey;
+    border-color: #868699;
+    color: #d6d6dc;
+}
+
+body.dark .new-task-button,
+body.dark .cancel-btn,
+body.dark #cancelDelete {
+    background-color: #3a3a4a;
+    color: #f1f1f1;
+}
+
+
+body.dark #modal,
+body.dark #deleteModal {
+    background-color: #2a2a3a;
+    color: #f1f1f1;
+}
+
+body.dark #modal input,
+body.dark .status-input,
+body.dark .priority-input {
+    background-color: #1e1e2a;
+    color: #f1f1f1;
+    border-color: #4a4a5a;
+}
+
+body.dark #modal .invalid {
+    background-color: #1e1e2a;
+    border-color: red;
+}
+
+body.dark .delete-text {
+    color: #b5b5c3;
+}
+
+
+body.dark .search-input {
+    color: #f1f1f1;
+}
+
+body.dark .search-container.active {
+    border-color: #4a4a5a;
+}
+
+body.dark .search-btn:hover {
+    background-color: #3a3a4a;
+}
+
+body.dark .notification-dropdown {
+    background: #2a2a3a;
+    border-color: #3a3a4a;
+}
+
+body.dark .dropdown-header,
+body.dark .notification-list li {
+    border-bottom-color: #3a3a4a;
+}
+
