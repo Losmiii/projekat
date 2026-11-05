@@ -1,194 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css" />
     <script src="script.js" defer></script>
-</head>
-<body>
-
+  </head>
+  <body>
     <dialog id="modal">
-        <h3>Create New Task</h3>
+      <h3>Create New Task</h3>
 
-        <form action="#">
-            <input type="text" id="title" placeholder="Title">
-            <small class="error" id="titleError"></small>
+      <form action="#">
+        <input type="text" id="title" placeholder="Title" />
+        <small class="error" id="titleError"></small>
 
-            <select class="priority-input" id="priority">
-                <option selected value="">Choose Priority</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-                <option value="Low">Low</option>
-            </select>
-            <small class="error" id="priorityError"></small>
+        <select class="priority-input" id="priority">
+          <option selected value="">Choose Priority</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+        <small class="error" id="priorityError"></small>
 
-            <select class="status-input" id="status">
-                <option selected value="">Choose Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-            </select>
-            <small class="error" id="statusError"></small>
+        <select class="status-input" id="status">
+          <option selected value="">Choose Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <small class="error" id="statusError"></small>
 
-            <input type="text" id="createdBy" placeholder="Created by">
-            <small class="error" id="createdByError"></small>
+        <input type="text" id="createdBy" placeholder="Created by" />
+        <small class="error" id="createdByError"></small>
 
-            <input type="date" id="dateAssigned">
-            <small class="error" id="dateAssignedError"></small>
+        <input type="date" id="dateAssigned" />
+        <small class="error" id="dateAssignedError"></small>
 
-            <input type="date" id="dueDate">
-            <small class="error" id="dueDateError"></small>
+        <input type="date" id="dueDate" />
+        <small class="error" id="dueDateError"></small>
 
-            <button id="addToTable" type="submit">Add Task</button>
-            <button id="cancel" type="button">Cancel</button>
-        </form>
+        <button id="addToTable" type="submit">Add Task</button>
+        <button id="cancel" type="button">Cancel</button>
+      </form>
     </dialog>
 
     <dialog id="deleteModal">
-        <h3>si siguran</h3>
-        <p class="delete-text">sve ce ode</p>
+      <h3>si siguran</h3>
+      <p class="delete-text">sve ce ode</p>
 
-        <div class="delete-buttons">
-            <button type="button" id="confirmDelete">delete</button>
-            <button type="button" id="cancelDelete">cancel</button>
-        </div>
+      <div class="delete-buttons">
+        <button type="button" id="confirmDelete">delete</button>
+        <button type="button" id="cancelDelete">cancel</button>
+      </div>
     </dialog>
 
     <main class="container">
-        <aside class="sidebar">
-            <div class="logo">
-                <p>UI</p>
-            </div>
+      <aside class="sidebar">
+        <div class="logo">
+          <p>UI</p>
+        </div>
 
-            <div class="icons">
-                <img class="home-picture" src="./assets/imgs/house-solid-full.svg" alt="home icon" />
-                <img class="home-picture" src="./assets/imgs/chart-bar-solid-full.svg" alt="chart icon" />
-                <img class="home-picture" src="./assets/imgs/chart-pie-solid-full.svg" alt="chart pie icon" />
-                <img class="home-picture" src="./assets/imgs/inbox-solid-full.svg" alt="inbox icon" />
-                <img class="home-picture" id="theme-btn" src="./assets/imgs/moon-regular-full.svg" alt="change theme icon" />
-                <img class="home-picture" src="./assets/imgs/gear-solid-full.svg" alt="settings icon" />
-            </div>
-        </aside>
+        <div class="icons">
+          <img
+            class="home-picture"
+            src="./assets/imgs/house-solid-full.svg"
+            alt="home icon"
+          />
+          <img
+            class="home-picture"
+            src="./assets/imgs/chart-bar-solid-full.svg"
+            alt="chart icon"
+          />
+          <img
+            class="home-picture"
+            src="./assets/imgs/chart-pie-solid-full.svg"
+            alt="chart pie icon"
+          />
+          <img
+            class="home-picture"
+            src="./assets/imgs/inbox-solid-full.svg"
+            alt="inbox icon"
+          />
+          <img
+            class="home-picture"
+            id="theme-btn"
+            src="./assets/imgs/moon-regular-full.svg"
+            alt="change theme icon"
+          />
+          <a href="settings.html" class="icon-link">
+            <img
+              class="home-picture"
+              src="./assets/imgs/gear-solid-full.svg"
+              alt="settings icon"
+            />
+          </a>
+        </div>
+      </aside>
 
-        <section class="page">
-            <header class="search-and-notifications">
+      <section class="page">
+        <header class="search-and-notifications">
+          <div>
+            <form id="search-form" action="#">
+              <div class="search-container" id="search-container">
+                <input
+                  type="text"
+                  name="query"
+                  class="search-input"
+                  id="search-input"
+                  placeholder="Search..."
+                  autocomplete="off"
+                />
+
+                <button type="button" class="search-btn" id="search-btn">
+                  <img
+                    class="search-icon"
+                    src="./assets/imgs/magnifying-glass-solid-full.svg"
+                    alt="search icon"
+                  />
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="notification">
+            <button
+              class="notification-button"
+              id="bell-btn"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="notification-image"
+                src="assets/imgs/bell-regular-full.svg"
+                alt="notification icon"
+              />
+            </button>
+
+            <div class="notification-dropdown" id="dropdown-menu">
+              <div class="dropdown-header">
+                <span>Notifications</span>
+              </div>
+              <ul class="notification-list">
+                <li class="unread">New comment on your post</li>
+                <li>Your profile was updated</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="profile">
+            <img src="assets/imgs/user-regular-full.svg" alt="profile icon" />
+          </div>
+        </header>
+
+        <section class="content">
+          <h1 class="table-name">My Tasks</h1>
+
+          <div class="tasks">
+            <div>Assigned Tasks</div>
+            <div>Accepted Tasks</div>
+            <div>Review Tasks</div>
+          </div>
+
+          <section class="button-section">
+            <div>
+              <section class="dates-and-status">
                 <div>
-                    <form id="search-form" action="#">
-                        <div class="search-container" id="search-container">
-                            <input type="text" name="query" class="search-input" id="search-input" placeholder="Search..." autocomplete="off">
-
-                            <button type="button" class="search-btn" id="search-btn">
-                                <img class="search-icon" src="./assets/imgs/magnifying-glass-solid-full.svg" alt="search icon">
-                            </button>
-                        </div>
-                    </form>
+                  <input class="date" id="filterDateAssigned" type="date" />
                 </div>
-
-                <div class="notification">
-                    <button class="notification-button" id="bell-btn" aria-haspopup="true" aria-expanded="false">
-                        <img class="notification-image" src="assets/imgs/bell-regular-full.svg" alt="notification icon">
-
-                    </button>
-
-                    <div class="notification-dropdown" id="dropdown-menu">
-                        <div class="dropdown-header">
-                            <span>Notifications</span>
-                        </div>
-                        <ul class="notification-list">
-                            <li class="unread">New comment on your post</li>
-                            <li>Your profile was updated</li>
-
-                        </ul>
-                    </div>
+                <div class="second-date">
+                  <input class="due-date" id="filterDueDate" type="date" />
                 </div>
-
-                <div class="profile">
-                    <img src="assets/imgs/user-regular-full.svg" alt="profile icon">
+                <div>
+                  <select class="status" id="filterStatus">
+                    <option selected value="">All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
                 </div>
-            </header>
-
-            <section class="content">
-                <h1 class="table-name">My Tasks</h1>
-
-                <div class="tasks">
-                    <div>Assigned Tasks</div>
-                    <div>Accepted Tasks</div>
-                    <div>Review Tasks</div>
+                <div>
+                  <button class="filter" onclick="filterTasks()">Filter</button>
                 </div>
+              </section>
+            </div>
 
-                <section class="button-section">
-                    <div>
-                        <section class="dates-and-status">
-                            <div>
-                                <input class="date" id="filterDateAssigned" type="date" />
-                            </div>
-                            <div class="second-date">
-                                <input class="due-date" id="filterDueDate" type="date" />
-                            </div>
-                            <div>
-                                <select class="status" id="filterStatus">
-                                    <option selected value="">All</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Inactive">Inactive</option>
-                                </select>
-                            </div>
-                            <div>
-                                <button class="filter" onclick="filterTasks()">Filter</button>
-                            </div>
-                        </section>
-                    </div>
+            <div>
+              <div class="new-task">
+                <div>
+                  <button class="new-task-button">
+                    <span class="plus-task">&plus;</span> Create New Task
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                    <div>
-                        <div class="new-task">
-                            <div>
-                                <button class="new-task-button"><span class="plus-task">&plus;</span> Create New Task</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+          <section class="table-section">
+            <table id="taskTable">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Created by</th>
+                  <th>Date Assigned</th>
+                  <th>Due Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </section>
 
-                <section class="table-section">
-                    <table id="taskTable">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Created by</th>
-                                <th>Date Assigned</th>
-                                <th>Due Date</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </section>
+          <footer>
+            <div>
+              <p>Rows per page:</p>
+            </div>
 
-                <footer>
-                    <div>
-                        <p>Rows per page: </p>
-                    </div>
+            <div>
+              <select class="page-number" id="rowsSelect">
+                <option selected value="4">4</option>
+                <option value="8">8</option>
+              </select>
+            </div>
 
-                    <div>
-                        <select class="page-number" id="rowsSelect">
-                            <option selected value="4">4</option>
-                            <option value="8">8</option>
-                        </select>
-                    </div>
+            <div>
+              <p id="pageInfo">1-50 of 100</p>
+            </div>
 
-                    <div>
-                        <p id="pageInfo">1-50 of 100</p>
-                    </div>
-
-                    <div>
-                        <img class="arrows" id="prevPage" src="assets/imgs/angle-left-solid-full.svg" alt="">
-                        <img class="arrows" id="nextPage" src="assets/imgs/angle-right-solid-full.svg" alt="">
-                    </div>
-                </footer>
-            </section>
+            <div>
+              <img
+                class="arrows"
+                id="prevPage"
+                src="assets/imgs/angle-left-solid-full.svg"
+                alt=""
+              />
+              <img
+                class="arrows"
+                id="nextPage"
+                src="assets/imgs/angle-right-solid-full.svg"
+                alt=""
+              />
+            </div>
+          </footer>
         </section>
+      </section>
     </main>
-
-</body>
+  </body>
 </html>
