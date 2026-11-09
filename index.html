@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <script src="script.js" defer></script>
+
+    <script src="./script.js" defer></script>
+    <script src="./sidebar.js" defer></script>
+    <script src="./header.js" defer></script>
   </head>
   <body>
     <dialog id="modal">
@@ -55,8 +58,8 @@
     </dialog>
 
     <main class="container">
-      <aside class="sidebar">
-        <div class="logo">
+      <!-- <aside class="sidebar"> -->
+      <!-- <div class="logo">
           <p>UI</p>
         </div>
 
@@ -95,10 +98,10 @@
             />
           </a>
         </div>
-      </aside>
+      </aside> -->
 
       <section class="page">
-        <header class="search-and-notifications">
+        <!-- <header class="search-and-notifications">
           <div>
             <form id="search-form" action="#">
               <div class="search-container" id="search-container">
@@ -150,7 +153,7 @@
           <div class="profile">
             <img src="assets/imgs/user-regular-full.svg" alt="profile icon" />
           </div>
-        </header>
+        </header> -->
 
         <section class="content">
           <h1 class="table-name">My Tasks</h1>
@@ -178,7 +181,7 @@
                   </select>
                 </div>
                 <div>
-                  <button class="filter" onclick="filterTasks()">Filter</button>
+                  <button class="filter" id="filterBtn">Filter</button>
                 </div>
               </section>
             </div>

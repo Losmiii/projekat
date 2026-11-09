@@ -70,7 +70,6 @@ body {
 }
 
 .search-and-notifications {
-  width: 100%;
   min-height: 70px;
   border-top-right-radius: 30px;
   display: flex;
@@ -643,4 +642,12 @@ body.dark .notification-dropdown {
 body.dark .dropdown-header,
 body.dark .notification-list li {
   border-bottom-color: #3a3a4a;
+}
+
+body.dark .settings-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .setting-row {
+  border-bottom-color: #22224d;
 }
